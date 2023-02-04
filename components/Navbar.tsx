@@ -1,47 +1,52 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '../redux/hook';
 import { logoutUser } from '../redux/slice/authSlice';
 
 const Navbar: FC = () => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const { isAuth } = useAppSelector(state => state.auth);
   const { name } = useAppSelector(state => state.auth.user);
   const dispatch = useAppDispatch()
   const { pathname } = useRouter();
+
+
   const handleLogout = () => {
     dispatch(logoutUser())
+  }
+
+  const handleHoverMenu = () => {
+    setIsVisible(!isVisible)
   }
 
   return (
     <nav className='flex justify-around mx-5 items-center h-navbar-height text-gray-800'>
       {/* левый */}
       <div className='w-1/3 flex justify-start'>
-        <div className='relative group focus:outline-none'>
+        <div className='relative focus:outline-none' onMouseEnter={handleHoverMenu} onMouseLeave={handleHoverMenu}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
-          <div className='absolute border-main flex flex-col opacity-0 group-hover:opacity-100 bg-gray-400 p-1 space-y-1'>
-            {!isAuth
-              ? <><Link href='/auth'>
-                <span className='navbar-link'>LogIn</span>
-              </Link>
-                <Link href='auth/register'>
-                  <span className='navbar-link'>Register</span>
+          {isVisible ?
+            <div className='absolute border-main flex flex-col items-start bg-gray-400 p-1 space-y-1'>
+              {!isAuth
+                ? <><Link href='/auth'>
+                  <span className='navbar-link'>LogIn</span>
                 </Link>
-              </>
-              : null
-            }
-            {isAuth
-              ? <><Link href='/history'>
-                <span className='navbar-link'>History</span>
-              </Link>
-                <span onClick={handleLogout}>
-                  <span className='navbar-link'>Logout</span>
-                </span></>
-              : null
-            }
-          </div>
+                  <Link href='auth/register'>
+                    <span className='navbar-link'>Register</span>
+                  </Link>
+                </>
+                : <><Link href='/history'>
+                  <span className='navbar-link'>History</span>
+                </Link>
+                  <span onClick={handleLogout}>
+                    <span className='navbar-link'>Logout</span>
+                  </span></>
+              }
+            </div>
+            : null }
         </div>
       </div>
       <span className='text-3xl text-black'>|</span>
