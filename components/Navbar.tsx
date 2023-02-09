@@ -31,10 +31,10 @@ const Navbar: FC = () => {
           {isVisible ?
             <div className='absolute border-main flex flex-col items-start bg-gray-400 p-1 space-y-1'>
               {!isAuth
-                ? <><Link href='/auth'>
+                ? <><Link href='/login'>
                   <span className='navbar-link'>LogIn</span>
                 </Link>
-                  <Link href='auth/register'>
+                  <Link href='login/register'>
                     <span className='navbar-link'>Register</span>
                   </Link>
                 </>

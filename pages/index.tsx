@@ -1,5 +1,5 @@
-import Shops from "../components/title-page/Shops"
-import ShopsShelf from "../components/title-page/ShopsShelf"
+import Shops from "../components/Shops"
+import ShopsShelf from "../components/ShopsShelf"
 
 const Home = () => {
   return (

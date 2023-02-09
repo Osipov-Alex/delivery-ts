@@ -4,9 +4,6 @@ import axios from 'axios';
 import { IUser } from '../../types';
 
 interface IAuthUser {
-  // email: string | null;
-  // name: string | null;
-  // id: string | null;
   user: IUser;
   accessToken: string | null;
   isLoading: boolean;
@@ -25,9 +22,6 @@ interface IErrorMessage {
 };
 
 const initialState: IAuthUser = {
-  // email: null,
-  // name: null,
-  // id: null,
   user: {
     email: '',
     name: '',
@@ -69,7 +63,6 @@ export const loginUser = createAsyncThunk<IAuthUser, { email: string, password: 
       if (data.accessToken) {
         localStorage.setItem('token', data.accessToken)
       }
-      console.log(data)
       return data
     } catch (error: any) {
       return rejectWithValue(error.response.data.message)

@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { IProduct } from '../../types'
-import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import { addProduct, increaseQuantity, decreaseQuantity, removeFromCart } from '../../redux/slice/cartSlice';
+import { IProduct } from '../types'
+import { useAppDispatch, useAppSelector } from '../redux/hook';
+import { addProduct, increaseQuantity, decreaseQuantity, removeFromCart } from '../redux/slice/cartSlice';
 
 interface IProductCardProps {
   product: IProduct

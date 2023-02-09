@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import { axiosShops } from '../../redux/slice/shopsSlice';
+import { useAppDispatch, useAppSelector } from '../redux/hook';
+import { axiosShops } from '../redux/slice/shopsSlice';
 import Shop from './Shop';
 
 

@@ -1,7 +1,8 @@
 import { FC, useEffect } from 'react';
-import { useAppSelector, useAppDispatch} from '../../redux/hook';
+import { useAppSelector, useAppDispatch} from '../redux/hook';
 import { ProductCard } from './ProductCard';
-import { axiosProducts } from '../../redux/slice/productSlice';
+import { axiosProducts } from '../redux/slice/productSlice';
+
 
 const ShopsShelf: FC = () => {
   const dispatch = useAppDispatch()

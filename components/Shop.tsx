@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
-import { useAppDispatch } from '../../redux/hook';
-import { selectedShop } from '../../redux/slice/shopsSlice';
-import { IShop } from '../../types';
+import { useAppDispatch } from '../redux/hook';
+import { selectedShop } from '../redux/slice/shopsSlice';
+import { IShop } from '../types';
 
 interface ShopProps {
   shop: IShop;

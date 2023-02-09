@@ -33,7 +33,6 @@ export const addNewOrder = createAsyncThunk<IOrder, IOrderToDb, { rejectValue: I
         products,
         shop,
       });
-      console.log(data)
       return data
     } catch (error: any) {
       rejectWithValue(error.response.message);

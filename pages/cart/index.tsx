@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ProductCard } from '../../components/title-page/ProductCard';
+import { ProductCard } from '../../components/ProductCard';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { clearCart } from '../../redux/slice/cartSlice';
 import { toast } from 'react-toastify';
@@ -9,7 +9,6 @@ const index: FC = () => {
   
   const dispatch = useAppDispatch()
   const { isAuth } = useAppSelector(state => state.auth);
-  // const { id } = useAppSelector(state => state.auth.user);
   const products = useAppSelector(state => state.cart.productsInCart);
   const shop = useAppSelector(state => state.shops.currentShop)
 

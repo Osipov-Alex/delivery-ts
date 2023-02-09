@@ -12,6 +12,8 @@ const index:FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const { status, isAuth } = useAppSelector(state => state.auth);
+  const productsInCart = useAppSelector(state => state.cart.productsInCart);
+  const countItems = productsInCart.length;
 
   const inputs = [
     { value: email, placeholder: 'Введите Ваш имейл', setValue: setEmail, type: 'text' },
@@ -22,7 +24,13 @@ const index:FC = () => {
     if (status) {
       toast(status)
     }
-    if (isAuth) router.push('/');
+    if (isAuth) {
+      if (countItems) {
+        router.push('/cart');
+      } else {
+        router.push('/');
+      }
+    }
   }, [status, isAuth])
 
   const handlerLogin = () => {
@@ -39,7 +47,7 @@ const index:FC = () => {
     <div className='w-full h-content-height p-1 flex flex-col justify-center items-center pb-20'>
       <div className='w-2/3 h-1/2 flex flex-col items-center justify-around border-item bg-gray-100'>
         <h1 className='text-2xl'>Войдите!</h1>
-        <span>Введите ваш имейл и пароль.</span>
+          <span>Введите ваш имейл и пароль.</span>
           <div className='flex flex-col w-3/4 items-center space-y-2.5'>
             {inputs.map(input => 
               <MyInput key={input.placeholder} value={input.value} placeholder={input.placeholder} setValue={input.setValue} type={input.type} />
