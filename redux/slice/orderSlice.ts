@@ -66,7 +66,6 @@ const orderSlice = createSlice({
       .addCase(addNewOrder.fulfilled, (state, action) => {
         state.isLoading = false;
         state.status = 'Загрузка успешна';
-        state.orderList.push(action.payload);
       })
       .addCase(addNewOrder.rejected, (state, action) => {
         state.isLoading = false;
