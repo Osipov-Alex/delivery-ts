@@ -11,9 +11,9 @@ interface IAuthUser {
   isAuth: boolean;
 };
 
-interface AuthResponse {
-  accessToken: string | null;
-  refreshToken: string | null;
+export interface AuthResponse {
+  accessToken: string;
+  refreshToken: string;
   user: IUser;
 };
 
@@ -74,7 +74,7 @@ export const checkUserAuth = createAsyncThunk<{ rejectValue: IErrorMessage }>(
   'auth/check',
   async () => {
     try {
-      const { data } = await axios.get<AuthResponse>('/refresh');
+      const { data } = await api.get<AuthResponse>('/refresh');
       if (data.accessToken) {
         localStorage.setItem('token', data.accessToken)
       };
@@ -116,7 +116,6 @@ const authSlice = createSlice({
         state.isAuth = true;
         state.status = action.payload.status;
         state.user.name = action.payload.user.name;
-        // state.id = action.payload.id;
       })
       .addCase(registerUser.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
@@ -128,14 +127,13 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.status = null;
       })
-      .addCase(loginUser.fulfilled, (state, action) => {
+      .addCase(loginUser.fulfilled, (state, action: PayloadAction<any>) => {
         state.user.email = action.payload.user.email;
         state.accessToken = action.payload.accessToken;
         state.isLoading = false;
         state.isAuth = true;
         state.status = action.payload.status;
         state.user.name = action.payload.user.name;
-        // state.user.id = action.payload.user.id;
       })
       .addCase(loginUser.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
@@ -143,22 +141,21 @@ const authSlice = createSlice({
         state.status = action.payload;
       })
       // Проверка
-      // .addCase(checkUserAuth.pending, (state) => {
-      //   state.isLoading = true;
-      //   state.status = null;
-      // })
-      // .addCase(checkUserAuth.fulfilled, (state, action: PayloadAction<any>) => {
-      //   state.email = action.payload.user.email;
-      //   state.accessToken = action.payload.accessToken;
-      //   state.isLoading = false;
-      //   state.status = action.payload.status
-      //   state.name = action.payload.user.name;
-      // })
-      // .addCase(checkUserAuth.rejected, (state, action: PayloadAction<any>) => {
-      //   state.isLoading = false;
-      //   state.name = null;
-      //   state.status = action.payload;
-      // })
+      .addCase(checkUserAuth.pending, (state) => {
+        state.isLoading = true;
+        state.status = null;
+      })
+      .addCase(checkUserAuth.fulfilled, (state, action: PayloadAction<any>) => {
+        state.isLoading = false;
+        state.isAuth = true;
+        state.user.email = action.payload.user.email;
+        state.user.name = action.payload.user.name;
+      })
+      .addCase(checkUserAuth.rejected, (state, action: PayloadAction<any>) => {
+        state.isLoading = false;
+        state.user.name = '';
+        state.status = action.payload;
+      })
       // Логаут
       .addCase(logoutUser.pending, (state) => {
         state.isLoading = true;
